@@ -9,8 +9,8 @@ def conv_naive_forward(x, w, b, conv_param):
 
     N, C, H, W = x.shape
     F, C, HH, WW = w.shape
-    Hout = int((W - WW + 2 * pad) / stride + 1)
-    Wout = int((H - HH + 2 * pad) / stride + 1)
+    Hout = (W - WW + 2 * pad) // stride + 1
+    Wout = (H - HH + 2 * pad) // stride + 1
     out = np.zeros((N, F, Hout, Wout))
     for idx_image, each_image in enumerate(x_padded):
         for i_H in range(Hout):
@@ -30,8 +30,8 @@ def max_pool_naive_forward(x, pool_param):
 
     pool_height, pool_width, stride = pool_param['pool_height'], pool_param['pool_width'], pool_param['stride']
 
-    Hout = int(1 + (H - pool_height) / stride)
-    Wout = int(1 + (W - pool_width) / stride)
+    Hout = 1 + (H - pool_height) // stride
+    Wout = 1 + (W - pool_width) // stride
 
     out = np.zeros((N, C, Hout, Wout))
 
